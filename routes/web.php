@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Models\User;
+use App\Http\Controllers\LoginController as login;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,5 +15,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return "This is homepage";
+})->name("index");
+
+Route::prefix('admin')->middleware('admin' , 'auth')->group(function () {
+    Route::get('/', function () {
+        return "This is adminpage";
+    })->name('adminIndex');
 });
+
+Route::get('/dang_xuat' , [login::class, "logout"])->name('logout');
+Route::get('/dang_nhap', [login::class , "login"])->name('login');
+Route::post('/dang_nhap', [login::class , "postLogin"])->name('postLogin');
