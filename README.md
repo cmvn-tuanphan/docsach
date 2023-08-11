@@ -43,7 +43,7 @@ php artisan key:generate
 Migrate
 
 ```sh
-php artisan key:generate
+php artisan migrate
 ```
 
 Seed Data
