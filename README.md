@@ -28,6 +28,13 @@ Access the container
 sudo docker-compose exec app bash
 ```
 
+Access the container on the second time
+
+```sh
+docker ps
+docker exec -it <containerID> bash
+```
+
 Install project dependencies
 
 ```sh
