@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('book_genres', function (Blueprint $table) {
             $table->id('genre_id');
-            $table->unsignedBigInteger('genre_name');
-            $table->timestamps();
+            $table->string('genre_name');
+            $table->text('description')->nullable();
+            $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });
     }
 

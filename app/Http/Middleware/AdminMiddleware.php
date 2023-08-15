@@ -16,6 +16,7 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         $user = auth()->user();
+     
         if ($user && $user->roles->role_id == 1) {
             return $next($request);
         }

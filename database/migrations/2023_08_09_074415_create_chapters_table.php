@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id('chapter_id');
             $table->unsignedBigInteger('book_id');
             $table->string('chapter_title');
-            $table->text('chapter_content');
-            $table->timestamps();
-
+            $table->longText('chapter_content');
+            $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             $table->foreign('book_id')->references('book_id')->on('books')->onDelete('cascade');
         });
     }
