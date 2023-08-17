@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\UserRole;
+use App\Models\Author;
 use Hash;
 class SetupSeeder extends Seeder
 {
@@ -30,5 +31,8 @@ class SetupSeeder extends Seeder
             ['user_id' => 1],
             ['role_id' => 1]
         );
+        Author::insert([
+            "author_name" => 1
+        ]);
     }
 }

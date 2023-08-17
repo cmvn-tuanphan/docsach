@@ -77,12 +77,11 @@ class CrawlController extends Controller
 
     public function setup(){
         $this->client = new Client();
-        $this->addCategories();
-        $this->addGenres();
-        DB::table("authors")->insert(["author_name" => 1]);
-        $this->crawlBooksFromGenres(2);
-        $this->crawlBooksFromCategories(2);
-        $this->mappingGenresAndCategories();
+        // $this->addCategories();
+        // $this->addGenres();
+        // $this->crawlBooksFromGenres(2);
+        // $this->crawlBooksFromCategories(2);
+        // $this->mappingGenresAndCategories();
         $this->crawl_books_chapters();
     }
 
@@ -130,7 +129,7 @@ class CrawlController extends Controller
                         if (trim($text) !== '') {
                             $crawler = $this->client->request('GET', $href);
                             $html = $crawler->filter('#box-content > div.detail-post > div > div.col-12.col-xl-8')->html();
-                            DB::table('books')->insert(["cover_image" => "" , "title" => $text, "genre_ids" => 1 , "author_id" => 1 , "category_ids" => 1 , "tag_ids" => 1 , "parserElem" => $html , "parserLink" => $href]);
+                            DB::table('books')->insert(["cover_image" => "" , "title" => $text, "genre_ids" => 1 , "author_id" => 1 , "category_ids" => 1, "parserElem" => $html , "parserLink" => $href]);
                         }
                     });
                 }); 
@@ -155,7 +154,7 @@ class CrawlController extends Controller
                         if (trim($text) !== '') {
                             $crawler = $this->client->request('GET', $href);
                             $html = $crawler->filter('#box-content > div.detail-post > div > div.col-12.col-xl-8')->html();
-                            DB::table('books')->insert(["cover_image" => "" , "title" => $text, "genre_ids" => 1 , "author_id" => 1 , "category_ids" => 1 , "tag_ids" => 1 , "parserElem" => $html , "parserLink" => $href]);
+                            DB::table('books')->insert(["cover_image" => "" , "title" => $text, "genre_ids" => 1 , "author_id" => 1 , "category_ids" => 1, "parserElem" => $html , "parserLink" => $href]);
                         }
                     });
                 }); 
@@ -203,7 +202,7 @@ class CrawlController extends Controller
     }
 
     function crawl_books_chapters(){
-        $books = DB::table("books")->get();
+        $books = DB::table("books")->where('book_id', '>', 736)->get();
 
         $replacement = '"';
         $problematicChar = "\xE2\x80\x9D";
