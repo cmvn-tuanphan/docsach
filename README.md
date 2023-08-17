@@ -64,8 +64,8 @@ Access to mysql container using the (second time access command above)
 input the following
 
 ```sh
-docker cp <containerId>:docsach.sql docsach.sql
-mysql -u root -p database_name < docsach.sql
+docker cp docsach.sql <containerId>:docsach.sql
+mysql -u root -p laravel < docsach.sql
 Enter password: root
 ```
 
