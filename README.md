@@ -65,6 +65,7 @@ input the following
 
 ```sh
 docker cp docsach.sql <containerId>:docsach.sql
+docker exec -it <containerID> bash
 mysql -u root -p laravel < docsach.sql
 Enter password: root
 ```
