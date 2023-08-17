@@ -59,5 +59,14 @@ Seed Data
 php artisan db:seed --class=SetupSeeder
 ```
 
+Import Database
+Access to mysql container using the (second time access command above)
+input the following
+
+```sh
+docker cp <containerId>:docsach.sql docsach.sql
+mysql -u root -p database_name < docsach.sql
+Enter password: root
+```
 
 
