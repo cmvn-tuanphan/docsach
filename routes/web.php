@@ -25,6 +25,8 @@ Route::get('/', [BookController::class, "getAll"])->name("index");
 
 Route::get("/category/{id}", [BookController::class, "getByCategory"]);
 
+Route::get('genre/{id}', [BookController::class, 'getByGenre']);
+
 Route::get('/book/{id}', [BookController::class, 'getBookById']);
 
 Route::get('chapter/{id}', [BookController::class, 'getChapterById'])->name('chapter');

@@ -14,17 +14,21 @@
             <div class="project-info-box">
                 <p><b>Thể loại:</b> 
                     @foreach ($genresName as $name)
-                        {{$name}}, 
+                    <a href="{{url('genre', ['id' => $name->genre_id])}}">
+                        {{$name->genre_name}}, 
+                    </a>
                     @endforeach
                 </p>
                 <p><b>Ngày:</b> {{$book->updated_at}}</p>
                 <p><b>Tác giả:</b> {{$author->author_name}}</p>
                
                 <h3>Mục lục sách</h3>
-                
-                    @foreach ($chapters as $chapter)
-                    <a href="{{url('chapter', ['id' => $chapter->chapter_id])}}" class="text text-info">{{$chapter->chapter_title}}: {{$chapter->chapter_content}}</a>   
-                    @endforeach
+                    <div>
+                        @foreach ($chapters as $chapter)
+                            <a href="{{url('chapter', ['id' => $chapter->chapter_id])}}" class="text text-info">{{$chapter->chapter_title}}: {{$chapter->chapter_content}}</a>  
+                            <br> 
+                        @endforeach
+                    </div>
                 
             </div><!-- / project-info-box -->
 
@@ -43,7 +47,9 @@
             <div class="project-info-box">
                 <p><b>Danh mục:</b> 
                     @foreach ($categoriesName as $name)
-                        {{$name}},
+                    <a href="{{url('category', ['id' => $name->category_id])}}">
+                        {{$name->category_name}},
+                    </a>
                     @endforeach    
                    
                     

@@ -19,9 +19,10 @@ class BookController extends Controller
         ->get();
 
         $categories = Category::get();
+        $genres = BookGenRes::get();
 
         return view('user.layout.home')->with('books', $books)
-        ->with('books3', $topBooks)->with('categories', $categories)
+        ->with('books3', $topBooks)->with('categories', $categories)->with('genres', $genres)
         ->with('title', 'Danh sách truyện');
         
     }
@@ -36,14 +37,34 @@ class BookController extends Controller
         $title = Category::where('category_id', $category_id)->pluck('category_name')[0];
         //dd($title);
         $categories = Category::get();
+        $genres = BookGenRes::get();
 
         return view('user.layout.home')->with('books', $books)
-        ->with('books3', $topBooks)->with('categories', $categories)
+        ->with('books3', $topBooks)->with('categories', $categories)->with('genres', $genres)
         ->with('title', $title);
+    }
+
+    public function getByGenre ($genre_id) {
+        $books = Book::whereRaw('genre_ids = ?', [$genre_id])->paginate(10);
+        $topBooks = Book::orderBy('created_at', 'asc')
+        ->take(3)
+        ->get();
+
+        $title = BookGenRes::where('genre_id', $genre_id)->pluck('genre_name')[0];
+
+        $categories = Category::get();
+        $genres = BookGenRes::get();
+
+        return view('user.layout.home')->with('books', $books)
+        ->with('books3', $topBooks)->with('categories', $categories)->with('genres', $genres)
+        ->with('title', $title);
+        
     }
 
     public function getBookById ($book_id) {
         $categories = Category::get();
+        $genres = BookGenRes::get();
+
         $topBooks = Book::orderBy('created_at', 'asc')
         ->take(3)
         ->get();
@@ -51,23 +72,25 @@ class BookController extends Controller
         $book = Book::where('book_id', $book_id)->first();
 
         $category_ids = explode(',', $book->category_ids);
-        $categoriesName = Category::whereIn('category_id', $category_ids)->pluck('category_name');
+        $categoriesName = Category::whereIn('category_id', $category_ids)->get();
 
         $genre_ids = explode(',', $book->genre_ids);
-        $genresName = BookGenRes::whereIn('genre_id', $genre_ids)->pluck('genre_name');
+        $genresName = BookGenRes::whereIn('genre_id', $genre_ids)->get();
 
         $author = Author::where('author_id', $book->author_id)->first();
 
         $chapters = Chapter::where('book_id', $book_id)->get();
 
         return view('user.layout.book')->with('book' ,$book)->with('books3', $topBooks)
-        ->with('categories', $categories)->with('categoriesName', $categoriesName)
+        ->with('categories', $categories)->with('categoriesName', $categoriesName)->with('genres', $genres)
         ->with('genresName', $genresName)
         ->with('author', $author)->with('chapters', $chapters);
     }
 
     public function getChapterById ($chapter_id) {
         $categories = Category::get();
+        $genres = BookGenRes::get();
+
         $topBooks = Book::orderBy('created_at', 'asc')
         ->take(3)
         ->get();
@@ -77,7 +100,8 @@ class BookController extends Controller
         $allChapterInBook = Chapter::where('book_id', $chapter->book_id)->get();
 
         return view('user.layout.chapter')->with('books3', $topBooks)
-        ->with('categories', $categories)->with('chapter', $chapter)->with('book', $book)
+        ->with('categories', $categories)->with('genres', $genres)
+        ->with('chapter', $chapter)->with('book', $book)
         ->with("chaptersInBook", $allChapterInBook);
     }
 

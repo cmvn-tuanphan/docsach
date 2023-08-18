@@ -247,11 +247,11 @@ a:hover {
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/">Trang chủ</a>
         </li>
         <li class="nav-item">
           <div class="nav-link dropdown" >
-            <p>Category</p>
+            <p>Danh mục</p>
             <div class="dropdown-content">
               @foreach ($categories as $category)  
                 <a class="text" href="{{url('category', ['id' => $category->category_id])}}">{{$category->category_name}}</a>
@@ -260,10 +260,17 @@ a:hover {
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Services</a>
+          <div class="nav-link dropdown" >
+            <p>Thể loại</p>
+            <div class="dropdown-content">
+              @foreach ($genres as $genre)  
+                <a class="text" href="{{url('genre', ['id' => $genre->genre_id])}}">{{$genre->genre_name}}</a>
+              @endforeach  
+            </div>
+          </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Contact</a>
+          <a class="nav-link" href="#">Đăng nhập</a>
         </li>
       </ul>
     </div>
@@ -322,7 +329,18 @@ a:hover {
           <!-- Grid column -->
           <div class="col-md-2">
             <h6 class="text-uppercase font-weight-bold">
-              <a href="#!" class="text-dark">About us</a>
+              <a target="blank" href="https://www.classmethod.vn/en/company-overview" class="text-dark">Về chúng tôi</a>
+            </h6>
+          </div>
+          <!-- Grid column -->
+
+        
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-2">
+            <h6 class="text-uppercase font-weight-bold">
+              <a href="#!" class="text-dark">Các thành tựu</a>
             </h6>
           </div>
           <!-- Grid column -->
@@ -330,7 +348,7 @@ a:hover {
           <!-- Grid column -->
           <div class="col-md-2">
             <h6 class="text-uppercase font-weight-bold">
-              <a href="#!" class="text-dark">Products</a>
+              <a href="#!" class="text-dark">Giúp đỡ</a>
             </h6>
           </div>
           <!-- Grid column -->
@@ -338,23 +356,7 @@ a:hover {
           <!-- Grid column -->
           <div class="col-md-2">
             <h6 class="text-uppercase font-weight-bold">
-              <a href="#!" class="text-dark">Awards</a>
-            </h6>
-          </div>
-          <!-- Grid column -->
-
-          <!-- Grid column -->
-          <div class="col-md-2">
-            <h6 class="text-uppercase font-weight-bold">
-              <a href="#!" class="text-dark">Help</a>
-            </h6>
-          </div>
-          <!-- Grid column -->
-
-          <!-- Grid column -->
-          <div class="col-md-2">
-            <h6 class="text-uppercase font-weight-bold">
-              <a href="#!" class="text-dark">Contact</a>
+              <a href="#!" class="text-dark">Liên hệ</a>
             </h6>
           </div>
           <!-- Grid column -->
@@ -408,6 +410,8 @@ a:hover {
          class="text-center p-3"
          style="background-color: rgba(0, 0, 0, 0.2)"
          >
+      <img src="https://www.classmethod.vn/images/logo_vietnam_footer@2x.png" alt="">
+
       © 2020 Copyright:
       <a class="text-white" href="https://docsach24.co/"
          >Docsach24.co</a
