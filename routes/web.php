@@ -41,5 +41,5 @@ Route::prefix('admin')->middleware('admin' , 'auth')->group(function () {
 
 Route::get('/dang_xuat' , [login::class, "logout"])->name('logout');
 Route::get('/dang_nhap', [login::class , "login"])->name('login');
-Route::post('/dang_nhap', [login::class , "postLogin"])->name('postLogin');
+Route::post('/dang-nhap', [login::class , "postLogin"])->name('postLogin');
 
