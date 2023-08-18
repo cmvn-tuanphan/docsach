@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Http\Controllers\LoginController as login;
@@ -20,9 +21,15 @@ use App\Http\Controllers\CrawlController as crawl;
 //Route::get("crawl" , [crawl::class , "setup"]);
 
 
-Route::get('/', function () {
-    return "This is homepage";
-})->name("index");
+Route::get('/', [BookController::class, "getAll"])->name("index");
+
+Route::get("/category/{id}", [BookController::class, "getByCategory"]);
+
+Route::get('/book/{id}', [BookController::class, 'getBookById']);
+
+Route::get('chapter/{id}', [BookController::class, 'getChapterById'])->name('chapter');
+
+Route::post('chapter/show', [BookController::class, 'showChapterById'])->name('chapter.show');
 
 Route::prefix('admin')->middleware('admin' , 'auth')->group(function () {
     Route::get('/', function () {
@@ -33,3 +40,4 @@ Route::prefix('admin')->middleware('admin' , 'auth')->group(function () {
 Route::get('/dang_xuat' , [login::class, "logout"])->name('logout');
 Route::get('/dang_nhap', [login::class , "login"])->name('login');
 Route::post('/dang_nhap', [login::class , "postLogin"])->name('postLogin');
+
