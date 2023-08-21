@@ -27,6 +27,20 @@ class BookController extends Controller
         
     }
 
+    public function search(Request $request) {
+        $query = $request->input('search');
+        $books = Book::where('title', 'LIKE', "%" . $query ."%")->paginate(10); 
+        $topBooks = Book::orderBy('created_at', 'asc')
+        ->take(3)
+        ->get();
+        $categories = Category::get();
+        $genres = BookGenRes::get();
+
+        return view('user.layout.home')->with('books', $books)
+        ->with('books3', $topBooks)->with('categories', $categories)->with('genres', $genres)
+        ->with('title', 'Danh sách tìm kiếm')->with('query' ,$query);
+    }
+
     public function getByCategory ($category_id) {
         $books = Book::whereRaw('category_ids = ?', [$category_id])->paginate(10);
         $topBooks = Book::orderBy('created_at', 'asc')
