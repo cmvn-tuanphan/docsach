@@ -7,7 +7,8 @@ use Goutte\Client;
 use Illuminate\Support\Str;
 use DB;
 use Symfony\Component\DomCrawler\Crawler;
-
+use File;
+use Http;
 class CrawlController extends Controller
 {
     private $client;
@@ -229,6 +230,4 @@ class CrawlController extends Controller
             }
         }    
     }
-
-
 }
