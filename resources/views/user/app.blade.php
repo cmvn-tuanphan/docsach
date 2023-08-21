@@ -208,7 +208,7 @@ a:hover {
 .dropdown-content {
   display: none;
   position: absolute;
-  left: -200px;
+  left: -300px;
   background-color: #f1f1f1;
   width: 600px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -238,20 +238,31 @@ a:hover {
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" style="height: 80px;">
   <div class="container">
     <a class="navbar-brand" href="/">Classmethod đọc truyện</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+    <div>
+      <form action="{{ route('search') }}" method="post">
+        @csrf
+        @if(isset($query))
+        <input  value="{{$query}}" style="padding: 5px; border-radius: 10px;" name="search" type="text" placeholder="Tìm kiếm"> 
+        @else
+        <input  style="padding: 5px; border-radius: 10px;" name="search" type="text" placeholder="Tìm kiếm"> 
+        @endif
+        <input class="btn btn-primary" type="submit" value="Tìm kiếm">
+      </form>
+    </div>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item active">
+        <li class="nav-item active d-flex align-items-center">
           <a class="nav-link" href="/">Trang chủ</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item d-flex align-items-center">
           <div class="nav-link dropdown" >
-            <p>Danh mục</p>
+            <p class="m-0">Danh mục</p>
             <div class="dropdown-content">
               @foreach ($categories as $category)  
                 <a class="text" href="{{url('category', ['id' => $category->category_id])}}">{{$category->category_name}}</a>
@@ -259,9 +270,9 @@ a:hover {
             </div>
           </div>
         </li>
-        <li class="nav-item">
+        <li class="nav-item d-flex align-items-center">
           <div class="nav-link dropdown" >
-            <p>Thể loại</p>
+            <p class="m-0">Thể loại</p>
             <div class="dropdown-content">
               @foreach ($genres as $genre)  
                 <a class="text" href="{{url('genre', ['id' => $genre->genre_id])}}">{{$genre->genre_name}}</a>
@@ -269,7 +280,7 @@ a:hover {
             </div>
           </div>
         </li>
-        <li class="nav-item">
+        <li class="nav-item d-flex align-items-center">
           <a class="nav-link" href="#">Đăng nhập</a>
         </li>
       </ul>
