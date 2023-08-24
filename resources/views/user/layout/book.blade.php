@@ -58,6 +58,28 @@
             </div><!-- / project-info-box -->
         </div><!-- / column -->
     </div>
+
+    <div class="mt-5">
+        <h2 class="text-center">Các truyện liên quan</h2>
+
+        <div class="row mt-4">
+            @foreach ($relatedBooks as $item)
+            <div class="col-md-6 col-lg-4 col-xl-3">
+                <a href="{{url('book', ['id' => $item->book_id])}}" class="link-book">
+                <div id="product-1" class="single-product" >
+                    <div class="part-1 img-hover-zoom">
+                        <img src="{{$item->cover_image}}" alt="" style="width: 100%">
+                    </div>
+                    <div class="part-2">
+                        <h3 class="product-title text">{{$item->title}}</h3>
+                    </div>
+                </div>
+            </a>
+            </div>
+            @endforeach
+        </div>
+        
+    </div>
 </div>
 
 @endsection

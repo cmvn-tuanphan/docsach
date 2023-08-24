@@ -66,7 +66,7 @@
             <div><h2>Loa kẹo kéo cực xịn</h2></div>
         </div>
         <!-- Advertisement content goes here -->
-        <a target="blank" href="https://shopee.vn/Thi%E1%BA%BFt-B%E1%BB%8B-%C4%90i%E1%BB%87n-T%E1%BB%AD-cat.11036132">
+        <a target="blank" href="https://shopee.vn/search?category=11036132&keyword=loa%20k%E1%BA%B9o%20k%C3%A9o">
             <p>Click to buy item</p>
             <img style="width: 400px; height: 150px;" src="https://down-vn.img.susercontent.com/file/d278b6c4fdaf00c707629fa6bb230709_tn" alt="">
         </a>

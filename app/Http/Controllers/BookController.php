@@ -36,9 +36,13 @@ class BookController extends Controller
         $categories = Category::get();
         $genres = BookGenRes::get();
 
+        $title = 'Danh sách tìm kiếm';
+        if($books->count() == 0 ){
+            $title = 'Không tìm thấy sách';
+        }
         return view('user.layout.home')->with('books', $books)
         ->with('books3', $topBooks)->with('categories', $categories)->with('genres', $genres)
-        ->with('title', 'Danh sách tìm kiếm')->with('query' ,$query);
+        ->with('title', $title)->with('query' ,$query);
     }
 
     public function getByCategory ($category_id) {
@@ -91,13 +95,15 @@ class BookController extends Controller
         $genre_ids = explode(',', $book->genre_ids);
         $genresName = BookGenRes::whereIn('genre_id', $genre_ids)->get();
 
+        $relatedBooks = Book::whereRaw('category_ids = ?', [$book->category_ids])->where('book_id', '!=', $book->book_id)->take(4)->get();
+
         $author = Author::where('author_id', $book->author_id)->first();
 
         $chapters = Chapter::where('book_id', $book_id)->get();
 
         return view('user.layout.book')->with('book' ,$book)->with('books3', $topBooks)
         ->with('categories', $categories)->with('categoriesName', $categoriesName)->with('genres', $genres)
-        ->with('genresName', $genresName)
+        ->with('genresName', $genresName)->with('relatedBooks', $relatedBooks)
         ->with('author', $author)->with('chapters', $chapters);
     }
 

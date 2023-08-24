@@ -26,8 +26,6 @@
                                 </div>
                                 <div class="part-2">
                                     <h3 class="product-title text">{{$book->title}}</h3>
-                                    {{-- <h4 class="product-old-price">$79.99</h4> --}}
-                                    {{-- <h4 class="product-price">$49.99</h4> --}}
                                 </div>
                             </div>
                         </a>

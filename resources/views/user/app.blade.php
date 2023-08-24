@@ -281,7 +281,7 @@ a:hover {
           </div>
         </li>
         <li class="nav-item d-flex align-items-center">
-          <a class="nav-link" href="#">Đăng nhập</a>
+          <a class="nav-link" href="dang_nhap">Đăng nhập</a>
         </li>
       </ul>
     </div>
