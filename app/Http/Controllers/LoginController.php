@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\UserRole;
+use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule as ValidationRule;
+
 class LoginController extends Controller
 {
     public function login() {
@@ -23,5 +29,29 @@ class LoginController extends Controller
     public function logout(){
         Auth::logout();
         return redirect()->route('index');
+    }
+
+    public function postSignup(Request $res) {
+        $input = $res->all();
+
+        request()->validate([
+            'email' => 'required|email|unique:users,email',
+            'name' => 'required|min:8',
+            'password' => 'required|min:6'
+           ]);
+
+        $input['password'] = Hash::make($input['password']);
+        $user = User::create($input);
+
+        UserRole::create([
+            'user_id' => $user->id,
+            'role_id' => 2
+        ]);
+
+        return back()->with('success', 'Đăng kí thành công!');
+    }
+
+    public function signup() {
+        return view('signup');
     }
 }

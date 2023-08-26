@@ -7,6 +7,7 @@ use App\Models\Book;
 use App\Models\BookGenRes;
 use App\Models\Category;
 use App\Models\Chapter;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -129,5 +130,40 @@ class BookController extends Controller
         $chapter_id = $request->input('chapter_id');
 
         return redirect()->route('chapter', ['id' => $chapter_id]);
+    }
+
+    public function favorite () {
+        $categories = Category::get();
+        $genres = BookGenRes::get();
+        $topBooks = Book::orderBy('created_at', 'asc')
+        ->take(3)
+        ->get();
+
+        $user = auth()->user();
+
+        $title = 'Danh sách các truyện bạn đã yêu thích';
+        $books = $user->favoriteBooks;
+        if($books->count() == 0 ) $title = 'Danh sách trống';
+        // dd($books);
+
+        return view('user.layout.favorite')->with('books3', $topBooks)
+        ->with('categories', $categories)->with('genres', $genres)
+        ->with('books',$books)->with('title', $title);
+    }
+
+    public function toggleFavorite($book)
+    {
+        $user = auth()->user();
+        $user = User::find($user->id);
+        // dd($user->favoriteBooks);
+        if ($user->favoriteBooks->contains($book)) {
+            $user->favoriteBooks()->detach($book);
+            $message = 'Book unfavorited';
+        } else {
+            $user->favoriteBooks()->attach($book);
+            $message = 'Book favorited';
+        }
+        
+        return response()->json(['message' => $message]);
     }
 }

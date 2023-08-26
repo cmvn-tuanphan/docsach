@@ -1,5 +1,5 @@
 @extends('user.app')
-@section('title', 'Home Page')
+@section('title', 'Favorite book')
 
 @section('content')
     
@@ -33,15 +33,11 @@
                     
                     
                     @endforeach
-                    <div class="navigate">
-                        {{ $books->links() }} <!-- Display pagination links -->
-                    </div>
+                  
                 </div>
 
 
             </div>
         </section>
-
-
 
 @endsection

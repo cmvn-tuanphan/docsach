@@ -12,6 +12,7 @@ class User extends Authenticatable
 {
     use HasFactory;
     protected $table = 'users';
+    
     protected $fillable = [
         'name',
         'password',
@@ -20,5 +21,10 @@ class User extends Authenticatable
     public function roles()
     {
         return $this->hasOne(UserRole::class, 'user_id');
+    }
+
+    public function favoriteBooks()
+    {
+        return $this->belongsToMany(Book::class, 'user_favorites', 'user_id', 'book_id');
     }
 }

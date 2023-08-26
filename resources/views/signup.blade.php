@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Login</title>
+  <title>Register</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
@@ -54,7 +54,7 @@
     margin: 0 0 10px;
     position: relative;
 }
-.form-horizontal .form-group:nth-child(3){ margin-bottom: 30px; }
+/* .form-horizontal .form-group:nth-child(3){ margin-bottom: 30px; } */
 .form-horizontal .form-group .input-icon{
     color: #e7e7e7;
     font-size: 23px;
@@ -124,7 +124,7 @@
                 <div class="row">
                     <div class="col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6" style="margin: 0 auto;">
                         <div class="form-container">
-                            <h3 class="title">Đăng nhập</h3>
+                            <h3 class="title">Đăng kí</h3>
                             @if ($errors->any())
                                 <div class="alert alert-danger">
                                         @foreach ($errors->all() as $error)
@@ -132,7 +132,12 @@
                                         @endforeach
                                 </div>
                             @endif
-                            <form method="POST" action="{{route("postLogin")}}" class="form-horizontal">
+                            @if (isset($success))
+                                <div class="alert alert-sucess">
+                                    <p>{{ $success }}</p>
+                                </div>
+                            @endif
+                            <form method="POST" action="{{route("postSignup")}}" class="form-horizontal">
                                 @csrf
                                 <div class="form-icon">
                                     <i class="fa fa-user-circle"></i>
@@ -142,13 +147,17 @@
                                     <input name="email" type="email" class="form-control" placeholder="Email">
                                 </div>
                                 <div class="form-group">
+                                    <span class="input-icon"><i class="fa fa-user"></i></span>
+                                    <input name="name" type="text" class="form-control" placeholder="Name">
+                                </div>
+                                <div class="form-group">
                                     <span class="input-icon"><i class="fa fa-lock"></i></span>
                                     <input name="password" type="password" class="form-control" placeholder="Password">
-                                    <span class="forgot"><a href="">Forgot Password?</a></span>
+                                    <span class="forgot"><a href="">Quên mật khẩu?</a></span>
                                 </div>
-                                <button type="submit" class="btn signin">Login</button>
+                                <button type="submit" class="btn signin">Đăng kí</button>
                             </form>
-                            <a style="display: inline-block; margin-top: 10px; text-decoration: none; color: rgb(232, 224, 224);" href="/dang_ki">Bạn chưa có tài khoản?</a>
+                            <a style="display: inline-block; margin-top: 10px; text-decoration: none; color: rgb(232, 224, 224);" href="/dang_nhap">Quay lại trang đăng nhập</a>
                         </div>
                     </div>
                 </div>

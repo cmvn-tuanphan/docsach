@@ -2,7 +2,11 @@
 @section('title', 'Book')
 
 @section('content')
-    
+    <style>
+        .active {
+            color: red !important;
+        }
+    </style>
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-5">
@@ -32,14 +36,7 @@
                 
             </div><!-- / project-info-box -->
 
-            <div class="project-info-box mt-0 mb-0">
-                <p class="mb-0">
-                    <a href="#x" class="btn btn-xs btn-facebook btn-circle btn-icon mr-5 mb-0"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#x" class="btn btn-xs btn-twitter btn-circle btn-icon mr-5 mb-0"><i class="fab fa-twitter"></i></a>
-                    <a href="#x" class="btn btn-xs btn-pinterest btn-circle btn-icon mr-5 mb-0"><i class="fab fa-pinterest"></i></a>
-                    <a href="#x" class="btn btn-xs btn-linkedin btn-circle btn-icon mr-5 mb-0"><i class="fab fa-linkedin-in"></i></a>
-                </p>
-            </div><!-- / project-info-box -->
+           <!-- / project-info-box -->
         </div><!-- / column -->
 
         <div class="col-md-7 text-center">
@@ -52,7 +49,15 @@
                     </a>
                     @endforeach    
                    
-                    
+                    <div class="project-info-box mt-0 mb-0">
+                        <p class="mb-0">
+                            <div style="                                    font-size: 24px;
+                                    color: #ccc; /* Inactive color */
+                                " class="favorite-heart{{ $book->isFavoritedByUser(auth()->user()) ? ' active' : '' }}">
+                                <i style="font-size: 30px; cursor: pointer;" class="fas fa-heart"></i>
+                            </div>                    
+                        </p>
+                    </div>
                  
                 </p>
             </div><!-- / project-info-box -->
@@ -80,6 +85,40 @@
         </div>
         
     </div>
+
+      
 </div>
 
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script>
+
+    // Assuming you have a heart icon with the class "favorite-heart"
+const favoriteHeart = document.querySelector('.favorite-heart');
+const favoriteHeartIcon =document.querySelector('.favorite-heart i');
+favoriteHeartIcon.addEventListener('click', function() {
+    const bookId = {{$book->book_id}};
+
+    try {
+        axios.post(`/favorite/${bookId}`)
+        .then(response => {
+            // Update the UI or show a success message
+            if (response.data.message === 'Book favorited') {
+                favoriteHeart.classList.add('active');
+            } else {
+                favoriteHeart.classList.remove('active');
+            }
+        })
+        .catch(error => {
+            // Handle errors
+            console.error(error);
+        });
+    } catch (err) {
+        console.log(err)
+    }
+    
+});
+
+</script>
 @endsection

@@ -20,20 +20,28 @@ use App\Http\Controllers\CrawlController as crawl;
 
 //Route::get("crawl" , [crawl::class , "setup"]);
 
+Route::middleware('auth')->group(function () {
+    Route::get('/', [BookController::class, "getAll"])->name("index");
 
-Route::get('/', [BookController::class, "getAll"])->name("index");
+    Route::get("/category/{id}", [BookController::class, "getByCategory"]);
 
-Route::get("/category/{id}", [BookController::class, "getByCategory"]);
+    Route::get('genre/{id}', [BookController::class, 'getByGenre']);
 
-Route::get('genre/{id}', [BookController::class, 'getByGenre']);
+    Route::get('/book/{id}', [BookController::class, 'getBookById']);
 
-Route::get('/book/{id}', [BookController::class, 'getBookById']);
+    Route::get('chapter/{id}', [BookController::class, 'getChapterById'])->name('chapter');
 
-Route::get('chapter/{id}', [BookController::class, 'getChapterById'])->name('chapter');
+    Route::post('chapter/show', [BookController::class, 'showChapterById'])->name('chapter.show');
 
-Route::post('chapter/show', [BookController::class, 'showChapterById'])->name('chapter.show');
+    Route::post('search', [BookController::class, 'search'])->name('search');   
 
-Route::post('search', [BookController::class, 'search'])->name('search');   
+    Route::get('favorite', [BookController::class, 'favorite'])->name('favorite');
+
+    Route::post('/favorite/{book}', [BookController::class, 'toggleFavorite'])->name('book.toggleFavorite');
+
+});
+
+
 
 Route::prefix('admin')->middleware('admin' , 'auth')->group(function () {
     Route::get('/', function () {
@@ -42,6 +50,12 @@ Route::prefix('admin')->middleware('admin' , 'auth')->group(function () {
 });
 
 Route::get('/dang_xuat' , [login::class, "logout"])->name('logout');
+
 Route::get('/dang_nhap', [login::class , "login"])->name('login');
 Route::post('/dang-nhap', [login::class , "postLogin"])->name('postLogin');
+
+Route::get('/dang_ki', [login::class , "signup"])->name('signup');
+Route::post('/dang_ki', [login::class , "postSignup"])->name('postSignup');
+
+
 
