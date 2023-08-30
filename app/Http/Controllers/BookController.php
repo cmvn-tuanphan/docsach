@@ -43,7 +43,7 @@ class BookController extends Controller
         }
         return view('user.layout.home')->with('books', $books)
         ->with('books3', $topBooks)->with('categories', $categories)->with('genres', $genres)
-        ->with('title', $title)->with('query' ,$query);
+        ->with('title', 'Danh sách tìm kiếm')->with('query' ,$query);
     }
 
     public function getByCategory ($category_id) {

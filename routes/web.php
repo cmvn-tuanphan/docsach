@@ -43,6 +43,8 @@ Route::middleware('auth')->group(function () {
 
 
 
+Route::post('search', [BookController::class, 'search'])->name('search');   
+
 Route::prefix('admin')->middleware('admin' , 'auth')->group(function () {
     Route::get('/', function () {
         return "This is adminpage";
