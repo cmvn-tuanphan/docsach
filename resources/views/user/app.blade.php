@@ -235,6 +235,8 @@ a:hover {
 }
 
 </style>
+
+
 </head>
 <body>
 
@@ -281,7 +283,25 @@ a:hover {
           </div>
         </li>
         <li class="nav-item d-flex align-items-center">
-          <a class="nav-link" href="#">Đăng nhập</a>
+          @auth
+          {{-- <a class="nav-link" href="/dang_xuat" onclick="return confirm('Bạn có muốn đăng xuất ??')">Đăng xuất</a> --}}
+
+          <div class="dropdown">
+            <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Profile
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item">{{Auth::user()->name}}</a>
+              <hr>
+              <a class="dropdown-item" href="{{route('favorite')}}">Các truyện yêu thích</a>
+              <a onclick="return confirm('Bạn có muốn đăng xuất ??')" class="dropdown-item" href="/dang_xuat">Đăng xuất</a>
+              
+            </div>
+          </div>
+
+          @else
+          <a class="nav-link" href="/dang_nhap">Đăng nhập</a>
+          @endauth
         </li>
       </ul>
     </div>
@@ -435,7 +455,16 @@ a:hover {
 <!-- End of .container -->
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
+--}}
+
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0&appId=106112235784110&autoLogAppEvents=1" nonce="2NL0flvj"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
