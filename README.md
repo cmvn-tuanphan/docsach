@@ -9,7 +9,7 @@ Access phpmyadmin http://localhost:8080
 
 phpmyadmin /mysql account:
     root
-    root
+    roots
 
 
 ```sh
